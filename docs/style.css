@@ -1,0 +1,130 @@
+/* style.css */ 
+body {
+  font-family: sans-serif;
+
+  background:  #FFF8EE
+}
+
+/* カードを並べる領域のレイアウト */
+#output {
+  max-width: 500px;
+  margin: 20px auto;
+  padding: 0 10px;
+}
+
+/* 検索欄・タイトル・入力フォームを同一幅で揃えるための共通コンテナ */
+.content-wrap {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 0 10px;
+  box-sizing: border-box;
+}
+
+/* フォームタイトルの余白調整 */
+#form-title {
+  margin: 10px 0;
+  padding: 0;
+  max-width: none;
+  color: #4C3A2F;
+}
+
+/* 「新規登録」の文字サイズ変更 */
+.special-title {
+  font-size: 20px;
+  color: #3d2424;
+}
+
+/* カードの見た目 */ 
+.note-card {
+  background: white;
+  border-radius: 12px;
+  padding: 14px;
+  margin-bottom: 16px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  line-height: 1.5;
+}
+
+/* タイトル */ 
+.top {
+  font-weight: bold;
+  font-size: 16px;
+  color: #4C3A2F;
+}
+
+/* 感想欄 */
+.form-textarea {
+  width: 100%;
+  min-height: 80px;
+  box-sizing: border-box;
+}
+
+/* 焙煎度・評価のサブ情報 */
+.sub {
+  color: #666;
+  font-size: 13px;
+  margin-bottom: 6px;
+}
+
+/* サブ情報内の強調部分 */ 
+.sub strong {
+color: #000;
+}
+
+/* 保存内容 */ 
+.comment {
+  margin: 8px 0;
+  height: 80px;       /* 高さ */
+  overflow-y: auto;   /* スクロール */
+}
+
+/* 原産地の小さな文字 */
+.origin {
+  font-size: 12px;
+  color: #999;
+}
+
+/* ボタンの余白 */
+button {
+  margin-top: 8px;
+  margin-right: 8px;
+}
+
+.btn-group {
+  margin-top: 8px;
+}
+
+.btn-group button {
+  margin-right: 8px;
+}
+
+/* フォーム全体のレイアウト */
+form {
+  margin: 0;
+  padding: 0;
+  max-width: none;
+}
+
+/* 入力欄のサイズ調整 */
+textarea,
+input[type="text"],
+select {
+  width: 100%;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 10px;
+  background: #fff;
+  box-sizing: border-box; 
+}
+
+/* 入力欄のサイズ調整（検索フォーム） */
+#searchInput {
+  margin: 10px 0;
+  max-width: none;
+  display: block;
+}
+
+/* iPhoneズーム防止対策 */
+input, textarea, select, button {
+  font-size: 16px;
+}
