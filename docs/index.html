@@ -14,6 +14,10 @@
 <body>
   <h1>🫘Roast Note</h1>
 
+  <button id="export-btn">エクスポート</button>
+  <input type="file" id="import-file" accept="application/json">
+  <button id="import-btn">インポート</button>
+
   <!-- ===================== -->
   <!-- 検索フォーム -->
   <!-- ===================== -->
@@ -346,6 +350,57 @@
         renderNotes(keyword);
       });
 
+      // =====================
+      // エクスポート
+      // =====================
+      document.getElementById("export-btn").addEventListener("click", async () => {
+        const notes = await getAllNotes();
+
+        const blob = new Blob(
+          [JSON.stringify(notes, null, 2)],
+          { type: "application/json" }
+        );
+
+        const url = URL.createObjectURL(blob);
+
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "roast-note-backup.json";
+        a.click();
+
+        URL.revokeObjectURL(url);
+      });
+
+      // =====================
+      // インポート
+      // =====================
+      document.getElementById("import-btn").addEventListener("click", async () => {
+        const fileInput = document.getElementById("import-file");
+        const file = fileInput.files[0];
+
+        if (!file) {
+          alert("ファイル選んでね");
+          return;
+        }
+
+        const text = await file.text();
+        const data = JSON.parse(text);
+
+        const db = await openDB();
+        const tx = db.transaction(STORE_NAME, "readwrite");
+        const store = tx.objectStore(STORE_NAME);
+
+        data.forEach(item => {
+          store.put(item); // 上書き or 追加
+        });
+
+        await new Promise((resolve, reject) => {
+          tx.oncomplete = resolve;
+          tx.onerror = () => reject(tx.error);
+        });
+
+        renderNotes();
+      });
   </script>
 </body>
 </html>
