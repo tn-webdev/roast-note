@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>データ管理</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="header">
+    <button id="back-btn">← 戻る</button>
+    <h2>データ管理</h2>
+  </header>
+
+  <div class="container">
+
+    <!-- Export -->
+    <section class="card">
+      <h3>📤 エクスポート</h3>
+      <p>データを保存します</p>
+      <button id="export-btn">エクスポート</button>
+    </section>
+
+    <!-- Import -->
+    <section class="card">
+      <h3>📥 インポート</h3>
+      <p class="warning">※現在のデータは上書きされます</p>
+
+      <input type="file" id="import-file" accept="application/json">
+      <button id="import-btn" class="danger">インポート</button>
+    </section>
+
+  </div>
+
+  <!-- DB関数を共有 -->
+  <script src="db.js"></script>
+  
+  <!-- Imp / Exp専用 -->
+  <script src="data.js"></script>
+
+</body>
+</html>

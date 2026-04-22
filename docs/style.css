@@ -1,8 +1,10 @@
-/* style.css */ 
+/* ===================== */
+/* Topページ             */
+/* ===================== */
 body {
   font-family: sans-serif;
-
-  background:  #FFF8EE
+  background:  #FFF8EE;
+  margin: 0;
 }
 
 /* カードを並べる領域のレイアウト */
@@ -124,7 +126,76 @@ select {
   display: block;
 }
 
+/* サブページ移動ボタン */
+.sub-btn {
+  display: block;
+  margin: 8px 10px 16px auto;
+  padding: 4px 0;
+  background: none;
+  border: none;
+  font-size: 0.8em;
+  color: #666;
+  cursor: pointer;
+  }
+
 /* iPhoneズーム防止対策 */
 input, textarea, select, button {
   font-size: 16px;
+}
+
+/* ===================== */
+/* Dataページ（Imp / Exp）*/
+/* ===================== */
+
+body {
+  font-family: sans-serif;
+  background: #FFF8EE;
+  margin: 0;
+}
+
+.header {
+  width: min(500px, calc(100% - 64px));
+  margin: 10px auto 0;
+  box-sizing: border-box;
+}
+
+.container {
+  width: min(500px, calc(100% - 64px));
+  margin: 20px auto;
+  box-sizing: border-box;
+}
+
+.card {
+  background: white;
+  border-radius: 12px;
+  padding: 12px 16px;
+  margin: 0 0 20px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  box-sizing: border-box;
+}
+
+.card h3 {
+  margin: 0 0 6px 0;
+  line-height: 1.4;
+  color: #4C3A2F;
+}
+
+.card p {
+  font-size: 13px;
+  color: #666;
+  margin-bottom: 10px;
+}
+
+.warning {
+  color: #c0392b;
+  font-size: 13px;
+}
+
+.danger {
+  background: #e74c3c;
+  color: white;
+}
+
+#back-btn {
+  margin-bottom: 10px;
 }

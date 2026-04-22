@@ -14,10 +14,8 @@
 <body>
   <h1>🫘Roast Note</h1>
 
-  <button id="export-btn">エクスポート</button>
-  <input type="file" id="import-file" accept="application/json">
-  <button id="import-btn">インポート</button>
-
+  <button id="data-btn" class="sub-btn">⚙️データ管理</button>
+  
   <!-- ===================== -->
   <!-- 検索フォーム -->
   <!-- ===================== -->
@@ -63,8 +61,6 @@
       <button type="submit" id="submit-btn">保存</button>
     </form>
   </div>
-
-  <div id="output"></div>
 
   <!-- ===================== -->
   <!-- 一覧表示 -->
@@ -229,13 +225,6 @@
           return;
         }
 
-        // const filtered = notes.filter(note => {
-        //   return (
-        //     note.name?.toLowerCase().includes(lowerKeyword) ||
-        //     note.comment?.toLowerCase().includes(lowerKeyword)
-        //   );
-        // });
-
         // 作成日の新しい順に並べ替え
         filtered.sort((a, b) => b.createdAt.localeCompare(a.createdAt));
 
@@ -350,57 +339,11 @@
         renderNotes(keyword);
       });
 
-      // =====================
-      // エクスポート
-      // =====================
-      document.getElementById("export-btn").addEventListener("click", async () => {
-        const notes = await getAllNotes();
-
-        const blob = new Blob(
-          [JSON.stringify(notes, null, 2)],
-          { type: "application/json" }
-        );
-
-        const url = URL.createObjectURL(blob);
-
-        const a = document.createElement("a");
-        a.href = url;
-        a.download = "roast-note-backup.json";
-        a.click();
-
-        URL.revokeObjectURL(url);
+      // データ管理
+      document.getElementById("data-btn").addEventListener("click", () => {
+        location.href = "data.html";
       });
 
-      // =====================
-      // インポート
-      // =====================
-      document.getElementById("import-btn").addEventListener("click", async () => {
-        const fileInput = document.getElementById("import-file");
-        const file = fileInput.files[0];
-
-        if (!file) {
-          alert("ファイル選んでね");
-          return;
-        }
-
-        const text = await file.text();
-        const data = JSON.parse(text);
-
-        const db = await openDB();
-        const tx = db.transaction(STORE_NAME, "readwrite");
-        const store = tx.objectStore(STORE_NAME);
-
-        data.forEach(item => {
-          store.put(item); // 上書き or 追加
-        });
-
-        await new Promise((resolve, reject) => {
-          tx.oncomplete = resolve;
-          tx.onerror = () => reject(tx.error);
-        });
-
-        renderNotes();
-      });
   </script>
 </body>
 </html>
