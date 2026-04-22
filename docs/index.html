@@ -68,74 +68,32 @@
   <div id="output"></div>
 
   <!-- ===================== -->
-  <!-- DB処理 -->
+  <!--   db.js読み込み追加    -->
+  <!-- ===================== -->
+  <script src="db.js"></script>
+
+  <!-- ===================== -->
+  <!-- UI処理 -->
   <!-- ===================== -->
   <script>
-    // RoastNoteの準備
-    const DB_NAME = "RoastNote";
-    const DB_VERSION = 1;
-    const STORE_NAME = "notes";         // オブジェクトストア
-
     let currentEditId = null;           // 編集用グローバル変数
 
-    // RoastNoteを開く
-    function openDB() {
-      return new Promise((resolve, reject) => {
-        const request = indexedDB.open(DB_NAME, DB_VERSION);  // DBオープン依頼とアップグレード処理
+    async function editNote(id) {
+      const data = await getNoteById(id);
 
-        // 初回 or バージョンアップ時の処理
-        request.onupgradeneeded = (event) => {
-          const db = event.target.result;
+      document.getElementById("name").value = data.name;
+      document.getElementById("comment").value = data.comment;
+      document.getElementById("roast").value = data.roast;
+      document.getElementById("origin").value = data.origin;
 
-          if (!db.objectStoreNames.contains(STORE_NAME)) {
-            const store = db.createObjectStore(STORE_NAME, {
-              keyPath: "id",    // 主キー
-            });
-
-            store.createIndex("createdAt", "createdAt");
-          }
-        };
-
-        request.onsuccess = () => resolve(request.result);    // 成功
-        request.onerror = () => reject(request.error);        // 失敗
-      });
-    }
-
-    // 1件のノートをIndexdDBに保存
-    async function saveNote(note) {
-      const db = await openDB();
-
-      const tx = db.transaction(STORE_NAME, "readwrite");     // 読み書き可能なトランザクションを開始
-      const store = tx.objectStore(STORE_NAME);               // 対象のオブジェクトストア（テーブル）を取得
-
-      // 編集モードか否かの判定
-      if (currentEditId) {
-        note.id = currentEditId;      // 編集モードの場合：既存データを上書きするためidをセット
-        store.put(note);              // put()→既存なら上書き、新規なら追加
-        currentEditId = null;         // 編集完了。フラグリセット
-      } else {
-        store.add(note);              // 新規作成の場合、新規データとして保存
+      if (data.rating) {
+        document.querySelector(`input[name="rating"][value="${data.rating}"]`).checked = true;
       }
 
-      return new Promise((resolve, reject) => {               // 保存完了を待つ
-        tx.oncomplete = () => resolve();                      // 正常時
-        tx.onerror = () => reject(tx.error);                  // 失敗時
-      });
-    }
+      currentEditId = id;
 
-    // RoastNoteから「notes（メモ）」を全部読み出して配列として返す
-    async function getAllNotes() {
-      const db = await openDB();
-
-      const tx = db.transaction(STORE_NAME, "readonly");      //ストアを読み取り専用で開く
-      const store = tx.objectStore(STORE_NAME);
-
-      const request = store.getAll();                         // ストア内のすべてのデータを読み出すリクエストを作成
-
-      return new Promise((resolve, reject) => {               // ストア内のすべてのデータを取得
-        request.onsuccess = () => resolve(request.result);
-        request.onerror = () => reject(request.error);
-      });
+      document.getElementById("form-title").textContent = "✏️ 編集中";
+      document.getElementById("submit-btn").textContent = "更新";
     }
 
     // DOM（ページの構造データ）読み込み後に実行
@@ -145,7 +103,7 @@
       const rating = document.querySelector('input[name="rating"]:checked')?.value;
 
       const data = {
-        id: crypto.randomUUID(),
+        // id: crypto.randomUUID(),
         name: document.getElementById("name").value,
         comment: document.getElementById("comment").value,
         rating: rating ? Number(rating) : null,
@@ -159,9 +117,16 @@
         return;
       }
 
-      await saveNote(data); // 保存
+       if (currentEditId) {
+          data.id = currentEditId;
+        } else {
+          data.id = crypto.randomUUID();
+        }
 
-      console.log("保存OK", data);
+        await saveNote(data, currentEditId !== null);
+        currentEditId = null;
+
+        console.log("保存OK", data);
 
       // フォームリセット
       e.target.reset();
@@ -257,7 +222,10 @@
           // 削除ボタン
           const button = document.createElement("button");
           button.textContent = "削除";
-          button.addEventListener("click", () => deleteNote(note.id));
+          button.addEventListener("click", async () => {
+            await deleteNote(note.id);
+            renderNotes();
+          });
 
           // 編集ボタン
           const editBtn = document.createElement("button");
@@ -275,57 +243,6 @@
           output.appendChild(div);            // 最終的に output に追加
         });
       }
-     
-      // =====================
-      // 削除処理
-      // =====================
-      async function deleteNote(id) {
-        const db = await openDB();
-        const tx = db.transaction(STORE_NAME, "readwrite");
-        const store = tx.objectStore(STORE_NAME);
-
-        store.delete(id);                                         // 指定したidのデータ削除
-
-        await new Promise((resolve, reject) => {                  // トランザクション完了まで待機
-          tx.oncomplete = resolve;                                // 正常時
-          tx.onerror = () => reject(tx.error);                    // 失敗時
-        });
-
-        renderNotes();
-      }
-
-      // =====================
-      // 編集処理
-      // =====================
-      async function editNote(id) {
-        const db = await openDB();
-        const tx = db.transaction(STORE_NAME, "readonly");        // 読み取り専用トランザクションを開始
-        const store = tx.objectStore(STORE_NAME);
-
-        const req = store.get(id);                                // 指定されたidのデータを取得するリクエストを送る
-
-        req.onsuccess = () => {
-          // 成功時
-          const data = req.result;
-
-          document.getElementById("name").value = data.name;
-          document.getElementById("comment").value = data.comment;
-          document.getElementById("roast").value = data.roast;
-          document.getElementById("origin").value = data.origin;
-
-          // ラジオボタン(rating)の対応
-          if (data.rating) {
-            document.querySelector(`input[name="rating"][value="${data.rating}"]`).checked = true;
-          }
-
-          currentEditId = id;       // 編集中のノートのIDを保存（保存ボタン押下時「更新」扱いとするため）
-
-          // UI変更（編集モード表示）
-          document.getElementById("form-title").textContent = "✏️ 編集中";
-          document.getElementById("submit-btn").textContent = "更新";
-
-        };
-      }     
 
       renderNotes();
       
