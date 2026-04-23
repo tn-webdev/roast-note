@@ -36,16 +36,28 @@ document.getElementById("import-btn").addEventListener("click", async () => {
 
   const text = await file.text();
   const data = JSON.parse(text);
-
   const db = await openDB();
-  const tx = db.transaction("notes", "readwrite");
-  const store = tx.objectStore("notes");
 
-  data.forEach(item => {
-    store.put(item);
+  // --- clear専用トランザクション ---
+  await new Promise((resolve, reject) => {
+    const tx = db.transaction("notes", "readwrite");
+    const store = tx.objectStore("notes");
+
+    const req = store.clear();
+
+    req.onsuccess = () => resolve();
+    req.onerror = () => reject(req.error);
   });
 
+  // --- put専用トランザクション ---
   await new Promise((resolve, reject) => {
+    const tx = db.transaction("notes", "readwrite");
+    const store = tx.objectStore("notes");
+
+    data.forEach(item => {
+      store.put(item);
+    });
+
     tx.oncomplete = resolve;
     tx.onerror = () => reject(tx.error);
   });
