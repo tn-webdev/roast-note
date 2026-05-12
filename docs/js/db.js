@@ -12,7 +12,7 @@ function openDB() {
   return new Promise((resolve, reject) => {
     const request = indexedDB.open(DB_NAME, DB_VERSION);
 
-    request.onupgradeneeded = (event) => {
+    request.onupgradeneeded = (event) => {      // DB が新規作成orバージョンアップされたときだけ呼ばれる特別なイベント
       const db = event.target.result;
 
       if (!db.objectStoreNames.contains(STORE_NAME)) {

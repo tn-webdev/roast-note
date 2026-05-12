@@ -4,6 +4,55 @@
 document.addEventListener("DOMContentLoaded", () => {
     let currentEditId = null;           // 編集用グローバル変数
 
+    const TASTE_TAGS = [
+        "甘み",
+        "苦み",
+        "酸味ひかえめ",
+        "酸味あり",
+        "コク",
+        "ナッツ",
+        "チョコ",
+        "ココア",
+        "香ばしい",
+        "フルーティ",
+        "土っぽい",
+        "まろやか",
+        "すっきり",
+        "重め",
+        "軽め",
+        "余韻あり"
+    ];
+
+    let selectedTags = [];
+
+    function renderTagSelector() {
+        const tagList = document.getElementById("tag-list");
+        tagList.innerHTML = "";
+
+        TASTE_TAGS.forEach(tag => {
+            const button = document.createElement("button");
+            button.type = "button";
+            button.textContent = tag;
+            button.className = "tag-chip";
+
+            if (selectedTags.includes(tag)) {
+                button.classList.add("selected");
+            }
+
+            button.addEventListener("click", () => {
+                if (selectedTags.includes(tag)) {
+                    selectedTags = selectedTags.filter(t => t !== tag);
+                } else {
+                    selectedTags.push(tag);
+                }
+
+                renderTagSelector();
+            });
+
+            tagList.appendChild(button);
+        });
+    }
+
     async function editNote(id) {
         const data = await getNoteById(id);
 
@@ -15,6 +64,9 @@ document.addEventListener("DOMContentLoaded", () => {
         if (data.rating) {
             document.querySelector(`input[name="rating"][value="${data.rating}"]`).checked = true;
         }
+
+        selectedTags = data.tags || [];
+        renderTagSelector();
 
         currentEditId = id;
 
@@ -35,6 +87,7 @@ document.addEventListener("DOMContentLoaded", () => {
         rating: rating ? Number(rating) : null,
         roast: document.getElementById("roast").value,
         origin: document.getElementById("origin").value,
+        tags: selectedTags,
         createdAt: new Date().toISOString()
         };
 
@@ -56,6 +109,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // フォームリセット
         e.target.reset();
+
+        selectedTags = [];
+        renderTagSelector();
 
         // 編集モード解除（UIリセット）
         document.getElementById("form-title").textContent = "新規登録";
@@ -102,9 +158,15 @@ document.addEventListener("DOMContentLoaded", () => {
         } else {
             // 検索あり → フィルタ
             filtered = notes.filter(note => {
+            const tags = note.tags || [];
+            const tagHtml = tags.length
+                ? `<div class="note-tags">${tags.map(tag => `<span class="note-tag">${tag}</span>`).join("")}</div>`
+                : "";
+                
             return (
                 note.name?.toLowerCase().includes(lowerKeyword) ||
-                note.comment?.toLowerCase().includes(lowerKeyword)
+                note.comment?.toLowerCase().includes(lowerKeyword) ||
+                tags.some(tag => tag.toLowerCase().includes(lowerKeyword))
             );
             });
         }
@@ -133,6 +195,8 @@ document.addEventListener("DOMContentLoaded", () => {
             <div class="sub">
                 ${formatRoast(note.roast)} / ⭐ <strong>${note.rating ?? "-"}</strong>
             </div>
+
+            ${tagHtml}
 
             <div class="comment">
                 ${note.comment ?? "なし"}
@@ -168,8 +232,6 @@ document.addEventListener("DOMContentLoaded", () => {
             output.appendChild(div);            // 最終的に output に追加
         });
     }
-
-    
     
     // =====================
     // 検索イベント
@@ -185,6 +247,8 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("data-btn").addEventListener("click", () => {
         location.href = "data.html";
     });
+
+    renderTagSelector();
 
     renderNotes("");
 });

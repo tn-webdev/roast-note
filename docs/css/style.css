@@ -199,3 +199,53 @@ body {
 #back-btn {
   margin-bottom: 10px;
 }
+
+/* ===================== */
+/* 味わいタグ             */
+/* ===================== */
+.tag-area {
+  margin: 4px 0 12px;
+}
+
+.tag-title {
+  font-size: 14px;
+  color: #4C3A2F;
+  margin-bottom: 6px;
+}
+
+.tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tag-chip {
+  border: 1px solid #ddd;
+  border-radius: 999px;
+  padding: 6px 10px;
+  background: #fff;
+  color: #4C3A2F;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.tag-chip.selected {
+  background: #4C3A2F;
+  color: #fff;
+  border-color: #4C3A2F;
+}
+
+.note-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 8px 0;
+}
+
+.note-tag {
+  border-radius: 999px;
+  padding: 3px 8px;
+  background: #F3E7D8;
+  color: #4C3A2F;
+  font-size: 12px;
+}
