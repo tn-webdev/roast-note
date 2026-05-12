@@ -158,16 +158,13 @@ document.addEventListener("DOMContentLoaded", () => {
         } else {
             // 検索あり → フィルタ
             filtered = notes.filter(note => {
-            const tags = note.tags || [];
-            const tagHtml = tags.length
-                ? `<div class="note-tags">${tags.map(tag => `<span class="note-tag">${tag}</span>`).join("")}</div>`
-                : "";
+                const tags = note.tags || [];
                 
-            return (
-                note.name?.toLowerCase().includes(lowerKeyword) ||
-                note.comment?.toLowerCase().includes(lowerKeyword) ||
-                tags.some(tag => tag.toLowerCase().includes(lowerKeyword))
-            );
+                return (
+                    note.name?.toLowerCase().includes(lowerKeyword) ||
+                    note.comment?.toLowerCase().includes(lowerKeyword) ||
+                    tags.some(tag => tag.toLowerCase().includes(lowerKeyword))
+                );
             });
         }
 
