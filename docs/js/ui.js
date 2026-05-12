@@ -184,6 +184,11 @@ document.addEventListener("DOMContentLoaded", () => {
         // ノート描画処理
         // =====================
         filtered.forEach(note => {
+            const tags = note.tags || [];
+            const tagHtml = tags.length
+                ? `<div class="note-tags">${tags.map(tag => `<span class="note-tag">${tag}</span>`).join("")}</div>`
+                : "";
+
             // カードの外枠
             const div = document.createElement("div");
             div.className = "note-card";
