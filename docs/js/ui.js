@@ -98,6 +98,16 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
+        const notes = await getAllNotes();
+        const similarNotes = findSimilarNotes(data.name, notes, currentEditId);
+
+        if (similarNotes.length > 0) {
+            alert(
+                "似た名前のコーヒーがあります☕️\n\n" +
+                similarNotes.map(note => `・${note.name}`).join("\n")
+            );
+        }
+
         if (currentEditId) {
             data.id = currentEditId;
         } else {
@@ -139,6 +149,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!target) return [];
 
         return notes.filter(note => {
+            // 編集中は自分自身を除外
             if (currentId && note.id === currentId) return false;
 
             const existing = normalizeCoffeeName(note.name);
