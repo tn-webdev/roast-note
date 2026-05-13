@@ -60,6 +60,7 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("comment").value = data.comment;
         document.getElementById("roast").value = data.roast;
         document.getElementById("origin").value = data.origin;
+        document.getElementById("shop").value = data.shop || "";
 
         if (data.rating) {
             document.querySelector(`input[name="rating"][value="${data.rating}"]`).checked = true;
@@ -87,6 +88,7 @@ document.addEventListener("DOMContentLoaded", () => {
         rating: rating ? Number(rating) : null,
         roast: document.getElementById("roast").value,
         origin: document.getElementById("origin").value,
+        shop: document.getElementById("shop").value, 
         tags: selectedTags,
         createdAt: new Date().toISOString()
         };
@@ -123,6 +125,29 @@ document.addEventListener("DOMContentLoaded", () => {
         // 最後に1回だけ再描画
         renderNotes();
     });
+
+    // =====================
+    // 重複チェック
+    // =====================
+    function normalizeCoffeeName(text) {
+        return (text || "").trim().toLowerCase().replace(/\s+/g, "");
+    }
+
+    function findSimilarNotes(inputName, notes, currentId = null) {
+        const target = normalizeCoffeeName(inputName);
+
+        if (!target) return [];
+
+        return notes.filter(note => {
+            if (currentId && note.id === currentId) return false;
+
+            const existing = normalizeCoffeeName(note.name);
+
+            if (!existing) return false;
+
+            return existing.includes(target) || target.includes(existing);
+        });
+    }
 
     // =====================
     // フォーマット系
@@ -205,6 +230,7 @@ document.addEventListener("DOMContentLoaded", () => {
             </div>
 
             ${note.origin ? `<div class="origin">${note.origin}</div>` : ""}
+            ${note.shop ? `<div class="shop">🏠 ${note.shop}</div>` : ""}
             `;
 
             // =====================
