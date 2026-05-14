@@ -249,3 +249,25 @@ body {
   color: #4C3A2F;
   font-size: 12px;
 }
+
+/* ===================== */
+/* タグ絞り込みUI         */
+/* ===================== */
+.tag-filter-area {
+  margin: 4px 0 12px;
+}
+
+#tag-filter-list {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 6px;
+  -webkit-overflow-scrolling: touch;
+}
+
+#tag-filter-list .tag-chip {
+  flex: 0 0 auto;
+  white-space: nowrap;
+}
+

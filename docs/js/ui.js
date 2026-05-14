@@ -24,6 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
     ];
 
     let selectedTags = [];
+    let activeFilterTag = null;          // 一覧絞り込み中のタグ
 
     function renderTagSelector() {
         const tagList = document.getElementById("tag-list");
@@ -50,6 +51,35 @@ document.addEventListener("DOMContentLoaded", () => {
             });
 
             tagList.appendChild(button);
+        });
+    }
+
+    function renderTagFilter() {
+        const tagFilterList = document.getElementById("tag-filter-list");
+        tagFilterList.innerHTML = "";
+
+        TASTE_TAGS.forEach(tag => {
+            const button = document.createElement("button");
+            button.type = "button";
+            button.textContent = `${activeFilterTag === tag ? "●" : "○"} ${tag}`;
+            button.className = "tag-chip";
+
+            if (activeFilterTag === tag) {
+                button.classList.add("selected");
+            }
+
+            button.addEventListener("click", () => {
+                if (activeFilterTag === tag) {
+                    activeFilterTag = null;      // 同じタグを押したら解除
+                } else {
+                    activeFilterTag = tag;       // 押したタグで絞り込み
+                }
+
+                renderTagFilter();
+                renderNotes();
+            });
+
+            tagFilterList.appendChild(button);
         });
     }
 
@@ -132,6 +162,10 @@ document.addEventListener("DOMContentLoaded", () => {
         // 検索リセット
         document.getElementById("searchInput").value = "";
 
+        // タグ絞り込みリセット
+        activeFilterTag = null;
+        renderTagFilter();
+
         // 最後に1回だけ再描画
         renderNotes();
     });
@@ -187,15 +221,37 @@ document.addEventListener("DOMContentLoaded", () => {
         const lowerKeyword = keyword.toLowerCase();
 
         // フィルタ処理（name + comment 部分一致）
-        let filtered;
-        if (!lowerKeyword) {
-            // 検索なし → 全件表示
-            filtered = notes;
-        } else {
-            // 検索あり → フィルタ
-            filtered = notes.filter(note => {
-                const tags = note.tags || [];
+        // let filtered;
+        // if (!lowerKeyword) {
+        //     // 検索なし → 全件表示
+        //     filtered = notes;
+        // } else {
+        //     // 検索あり → フィルタ
+        //     filtered = notes.filter(note => {
+        //         const tags = note.tags || [];
                 
+        //         return (
+        //             note.name?.toLowerCase().includes(lowerKeyword) ||
+        //             note.comment?.toLowerCase().includes(lowerKeyword) ||
+        //             tags.some(tag => tag.toLowerCase().includes(lowerKeyword))
+        //         );
+        //     });
+        // }
+
+        // フィルタ処理
+        // 今回は「タグ絞り込み」を優先。
+        // 検索欄との併用は後回し。
+        let filtered = notes;
+
+        if (activeFilterTag) {
+            filtered = filtered.filter(note => {
+                const tags = note.tags || [];
+                return tags.includes(activeFilterTag);
+            });
+        } else if (lowerKeyword) {
+            filtered = filtered.filter(note => {
+                const tags = note.tags || [];
+
                 return (
                     note.name?.toLowerCase().includes(lowerKeyword) ||
                     note.comment?.toLowerCase().includes(lowerKeyword) ||
@@ -288,6 +344,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     renderTagSelector();
+    renderTagFilter();
 
     renderNotes("");
 });
