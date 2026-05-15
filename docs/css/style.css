@@ -234,8 +234,10 @@ body {
   background: #4C3A2F;
   color: #fff;
   border-color: #4C3A2F;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.12);
-  transform: translateY(-1px);
+}
+
+.tag-chip:active {
+  transform: scale(0.97);
 }
 
 .note-tags {
