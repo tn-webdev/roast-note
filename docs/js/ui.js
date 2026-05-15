@@ -12,7 +12,6 @@ document.addEventListener("DOMContentLoaded", () => {
         "コク",
         "ナッツ",
         "チョコ",
-        "ココア",
         "香ばしい",
         "フルーティ",
         "土っぽい",
@@ -61,7 +60,7 @@ document.addEventListener("DOMContentLoaded", () => {
         TASTE_TAGS.forEach(tag => {
             const button = document.createElement("button");
             button.type = "button";
-            button.textContent = `${activeFilterTag === tag ? "●" : "○"} ${tag}`;
+            button.textContent = tag;
             button.className = "tag-chip";
 
             if (activeFilterTag === tag) {

@@ -222,17 +222,20 @@ body {
 .tag-chip {
   border: 1px solid #ddd;
   border-radius: 999px;
-  padding: 6px 10px;
+  padding: 8px 14px;
   background: #fff;
   color: #4C3A2F;
   font-size: 14px;
   cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
 }
 
 .tag-chip.selected {
   background: #4C3A2F;
   color: #fff;
   border-color: #4C3A2F;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+  transform: translateY(-1px);
 }
 
 .note-tags {
