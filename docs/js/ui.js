@@ -208,10 +208,133 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // =====================
+    // 好み分析
+    // =====================
+    function analyzePreferences(notes) {
+        const ratedNotes = notes.filter(note =>
+            note.rating !== null &&
+            note.rating !== undefined
+        );
+
+        if (ratedNotes.length === 0) {
+            return null;
+        }
+
+        // =====================
+        // タグ分析
+        // =====================
+        const tagStats = {};
+
+        ratedNotes.forEach(note => {
+            const tags = note.tags || [];
+
+            tags.forEach(tag => {
+                if (!tagStats[tag]) {
+                    tagStats[tag] = {
+                        total: 0,
+                        sum: 0
+                    };
+                }
+
+                tagStats[tag].total += 1;
+                tagStats[tag].sum += note.rating;
+            });
+        });
+
+        // 平均値計算
+        const tagRanking = Object.entries(tagStats)
+            .map(([tag, data]) => ({
+                tag,
+                average: data.sum / data.total,
+                total: data.total
+            }))
+            .sort((a, b) => b.average - a.average);
+
+        // =====================
+        // 焙煎度分析
+        // =====================
+        const roastStats = {};
+
+        ratedNotes.forEach(note => {
+            if (!note.roast) return;
+
+            if (!roastStats[note.roast]) {
+                roastStats[note.roast] = {
+                    total: 0,
+                    sum: 0
+                };
+            }
+
+            roastStats[note.roast].total += 1;
+            roastStats[note.roast].sum += note.rating;
+        });
+
+        const roastRanking = Object.entries(roastStats)
+            .map(([roast, data]) => ({
+                roast,
+                average: data.sum / data.total,
+                total: data.total
+            }))
+            .sort((a, b) => b.average - a.average);
+
+        return {
+            totalRated: ratedNotes.length,
+            tagRanking,
+            roastRanking
+        };
+    }
+
+    function renderPreferenceAnalysis(notes) {
+        const analysisContent = document.getElementById("analysis-content");
+        const analysis = analyzePreferences(notes);
+
+        if (!analysis) {
+            analysisContent.textContent = "評価データがまだありません";
+            return;
+        }
+
+        const topTags = analysis.tagRanking
+            .slice(0, 3)
+            .map(tag =>
+                `・${tag.tag}（${tag.average.toFixed(1)}）`
+            )
+            .join("<br>");
+
+        const topRoasts = analysis.roastRanking
+            .slice(0, 3)
+            .map(item =>
+                `・${formatRoast(item.roast)}（${item.average.toFixed(1)} / ${item.total}件）`
+            )
+            .join("<br>");
+
+        analysisContent.innerHTML = `
+            <div class="analysis-section">
+                <div class="analysis-label">登録済み評価データ</div>
+                <div class="analysis-item">${analysis.totalRated}件</div>
+            </div>
+
+            <div class="analysis-section">
+                <div class="analysis-label">高評価に付きやすいタグ</div>
+                <div class="analysis-item">
+                    ${topTags || "データなし"}
+                </div>
+            </div>
+
+            <div class="analysis-section">
+                <div class="analysis-label">好きな焙煎度</div>
+                <div class="analysis-item">
+                    ${topRoasts || "データなし"}
+                </div>
+            </div>
+        `;
+    }
+
+    // =====================
     // UI描画（検索対応版）
     // =====================
     async function renderNotes(keyword = "") {
         const notes = await getAllNotes();                                // 全ノート取得
+        renderPreferenceAnalysis(notes);
         const output = document.getElementById("output");                 // 描画先の要素取得
 
         output.innerHTML = "";                                            // リセット
