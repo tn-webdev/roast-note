@@ -277,10 +277,41 @@ document.addEventListener("DOMContentLoaded", () => {
             }))
             .sort((a, b) => b.average - a.average);
 
+        // =====================
+        // 産地分析
+        // =====================
+        const originStats = {};
+
+        ratedNotes.forEach(note => {
+            if (!note.origin) return;
+
+            const origin = note.origin.trim();
+            if (!origin) return;
+
+            if (!originStats[origin]) {
+                originStats[origin] = {
+                    total: 0,
+                    sum: 0
+                };
+            }
+
+            originStats[origin].total += 1;
+            originStats[origin].sum += note.rating;
+        });
+
+        const originRanking = Object.entries(originStats)
+            .map(([origin, data]) => ({
+                origin,
+                average: data.sum / data.total,
+                total: data.total
+            }))
+            .sort((a, b) => b.average - a.average);    
+
         return {
             totalRated: ratedNotes.length,
             tagRanking,
-            roastRanking
+            roastRanking,
+            originRanking
         };
     }
 
@@ -307,6 +338,13 @@ document.addEventListener("DOMContentLoaded", () => {
             )
             .join("<br>");
 
+        const topOrigins = analysis.originRanking
+            .slice(0, 3)
+            .map(item =>
+                `・${item.origin}（${item.average.toFixed(1)} / ${item.total}件）`
+            )
+            .join("<br>");
+
         analysisContent.innerHTML = `
             <div class="analysis-section">
                 <div class="analysis-label">登録済み評価データ</div>
@@ -326,6 +364,14 @@ document.addEventListener("DOMContentLoaded", () => {
                     ${topRoasts || "データなし"}
                 </div>
             </div>
+
+            <div class="analysis-section">
+                <div class="analysis-label">好きな産地</div>
+                <div class="analysis-item">
+                    ${topOrigins || "データなし"}
+                </div>
+            </div>
+
         `;
     }
 
