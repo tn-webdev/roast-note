@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>登録データ | Roast Note</title>
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+  <header class="app-header">
+    <a href="./index.html" class="home-link">HOME</a>
+    <h1><a href="./index.html" class="logo-link">Roast Note</a></h1>
+    <h2>登録データ</h2>
+  </header>
+
+  <main class="container">
+    <section class="panel records-summary">
+      <div>
+        <span class="summary-label">登録件数</span>
+        <strong id="record-count">0件</strong>
+      </div>
+      <button type="button" id="toggle-all-btn" class="secondary-btn">全件表示</button>
+    </section>
+
+    <section id="output" class="note-list" aria-live="polite"></section>
+  </main>
+
+  <script src="./js/db.js"></script>
+  <script src="./js/common.js"></script>
+  <script src="./js/records.js"></script>
+</body>
+</html>

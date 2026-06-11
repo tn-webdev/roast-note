@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>登録 | Roast Note</title>
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+  <header class="app-header">
+    <a href="./index.html" class="home-link">HOME</a>
+    <h1><a href="./index.html" class="logo-link">Roast Note</a></h1>
+    <h2 id="form-title">新規登録</h2>
+  </header>
+
+  <main class="container">
+    <section id="duplicate-warning" class="panel warning-panel" hidden>
+      <h3>似た名前のコーヒーがあります</h3>
+      <div id="duplicate-list"></div>
+      <div class="btn-group">
+        <button type="button" id="duplicate-save-btn">登録する</button>
+        <button type="button" id="duplicate-back-btn" class="secondary-btn">戻る</button>
+      </div>
+    </section>
+
+    <form id="note-form">
+      <input type="text" id="name" placeholder="コーヒー名">
+      <input type="text" id="origin" placeholder="産地（例：インドネシア・バリ島）">
+      <input type="text" id="shop" placeholder="店名（例：珈琲問屋）">
+
+      <textarea id="comment" class="form-textarea" placeholder="感想" rows="10"></textarea>
+
+      <select id="roast">
+        <option value="">焙煎度</option>
+        <option value="light">浅煎り（ライト：-20秒）</option>
+        <option value="cinnamon">浅煎り（シナモン：-10秒）</option>
+        <option value="medium">中煎り（ミディアム：標準）</option>
+        <option value="high">中煎り（ハイ：+20秒）</option>
+        <option value="city">深煎り（シティ以上：+40秒～）</option>
+      </select>
+
+      <section class="panel flush-panel">
+        <h3>味わいタグ</h3>
+        <div id="tag-list" class="tag-list"></div>
+      </section>
+
+      <fieldset class="rating-field">
+        <legend>評価</legend>
+        <label><input type="radio" name="rating" value="1">1</label>
+        <label><input type="radio" name="rating" value="2">2</label>
+        <label><input type="radio" name="rating" value="3">3</label>
+        <label><input type="radio" name="rating" value="4">4</label>
+        <label><input type="radio" name="rating" value="5">5</label>
+      </fieldset>
+
+      <div class="btn-group">
+        <button type="submit" id="submit-btn">保存</button>
+        <button type="button" id="cancel-btn" class="secondary-btn">キャンセル</button>
+      </div>
+    </form>
+  </main>
+
+  <script src="./js/db.js"></script>
+  <script src="./js/common.js"></script>
+  <script src="./js/register.js"></script>
+</body>
+</html>

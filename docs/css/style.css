@@ -1,114 +1,138 @@
-/* ===================== */
-/* Topページ             */
-/* ===================== */
 body {
-  font-family: sans-serif;
-  background:  #FFF8EE;
   margin: 0;
-}
-
-/* カードを並べる領域のレイアウト */
-#output {
-  max-width: 500px;
-  margin: 20px auto;
-  padding: 0 10px;
-}
-
-/* 検索欄・タイトル・入力フォームを同一幅で揃えるための共通コンテナ */
-.content-wrap {
-  max-width: 500px;
-  margin: 0 auto;
-  padding: 0 10px;
-  box-sizing: border-box;
-}
-
-/* フォームタイトルの余白調整 */
-#form-title {
-  margin: 10px 0;
-  padding: 0;
-  max-width: none;
-  color: #4C3A2F;
-}
-
-/* 「新規登録」の文字サイズ変更 */
-.special-title {
-  font-size: 20px;
+  background: #fff8ee;
   color: #3d2424;
+  font-family: sans-serif;
 }
 
-/* カードの見た目 */ 
-.note-card {
-  background: white;
-  border-radius: 12px;
-  padding: 14px;
-  margin-bottom: 16px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-  line-height: 1.5;
+a {
+  color: inherit;
+  text-decoration: none;
 }
 
-/* タイトル */ 
-.top {
-  font-weight: bold;
-  font-size: 16px;
-  color: #4C3A2F;
-}
-
-/* 感想欄 */
-.form-textarea {
-  width: 100%;
-  min-height: 80px;
+.app-header {
+  width: min(500px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 18px 0 8px;
   box-sizing: border-box;
 }
 
-/* 焙煎度・評価のサブ情報 */
-.sub {
-  color: #666;
-  font-size: 13px;
-  margin-bottom: 6px;
+.home-header {
+  padding-top: 32px;
 }
 
-/* サブ情報内の強調部分 */ 
-.sub strong {
-color: #000;
-}
-
-/* 保存内容 */ 
-.comment {
-  margin: 8px 0;
-  height: 80px;       /* 高さ */
-  overflow-y: auto;   /* スクロール */
-}
-
-/* 原産地の小さな文字 */
-.origin {
-  font-size: 12px;
-  color: #999;
-}
-
-/* ボタンの余白 */
-button {
-  margin-top: 8px;
-  margin-right: 8px;
-}
-
-.btn-group {
-  margin-top: 8px;
-}
-
-.btn-group button {
-  margin-right: 8px;
-}
-
-/* フォーム全体のレイアウト */
-form {
+.app-header h1,
+.app-header h2,
+.app-header p {
   margin: 0;
-  padding: 0;
-  max-width: none;
 }
 
-/* 入力欄のサイズ調整 */
-textarea,
+.app-header h1 {
+  color: #4c3a2f;
+  font-size: 30px;
+}
+
+.app-header h2 {
+  margin-top: 10px;
+  font-size: 20px;
+}
+
+.logo-link::before {
+  content: "豆 ";
+}
+
+.lead {
+  margin-top: 8px;
+  color: #66574e;
+  line-height: 1.6;
+}
+
+.home-link {
+  display: inline-block;
+  margin-bottom: 10px;
+  color: #66574e;
+  font-size: 14px;
+}
+
+.container {
+  width: min(500px, calc(100% - 32px));
+  margin: 16px auto 32px;
+  box-sizing: border-box;
+}
+
+.home-menu {
+  display: grid;
+  gap: 12px;
+}
+
+.menu-card,
+.card,
+.panel,
+.note-card,
+.analysis-card {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  box-sizing: border-box;
+}
+
+.menu-card {
+  display: grid;
+  grid-template-columns: 52px 1fr;
+  gap: 2px 12px;
+  padding: 14px;
+}
+
+.menu-card strong {
+  font-size: 17px;
+}
+
+.menu-card span:last-child {
+  color: #66574e;
+  font-size: 13px;
+}
+
+.menu-icon {
+  grid-row: span 2;
+  display: grid;
+  place-items: center;
+  min-height: 48px;
+  border-radius: 8px;
+  background: #f3e7d8;
+  color: #4c3a2f;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.card,
+.panel,
+.analysis-card {
+  margin-bottom: 16px;
+  padding: 14px;
+}
+
+.flush-panel {
+  box-shadow: none;
+  padding: 0;
+}
+
+.card h3,
+.panel h3 {
+  margin: 0 0 8px;
+  color: #4c3a2f;
+  font-size: 16px;
+}
+
+.card p {
+  margin: 0 0 10px;
+  color: #66574e;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
 input[type="text"],
+input[type="file"],
+textarea,
 select {
   width: 100%;
   margin-bottom: 10px;
@@ -116,101 +140,45 @@ select {
   border-radius: 8px;
   padding: 10px;
   background: #fff;
-  box-sizing: border-box; 
+  box-sizing: border-box;
 }
 
-/* 入力欄のサイズ調整（検索フォーム） */
-#searchInput {
-  margin: 10px 0;
-  max-width: none;
-  display: block;
-}
-
-/* サブページ移動ボタン */
-.sub-btn {
-  display: block;
-  margin: 8px 10px 16px auto;
-  padding: 4px 0;
-  background: none;
-  border: none;
-  font-size: 0.8em;
-  color: #666;
-  cursor: pointer;
-  }
-
-/* iPhoneズーム防止対策 */
-input, textarea, select, button {
+input,
+textarea,
+select,
+button {
   font-size: 16px;
 }
 
-/* ===================== */
-/* Dataページ（Imp / Exp）*/
-/* ===================== */
-
-body {
-  font-family: sans-serif;
-  background: #FFF8EE;
-  margin: 0;
+.form-textarea {
+  min-height: 120px;
 }
 
-.header {
-  width: min(500px, calc(100% - 64px));
-  margin: 10px auto 0;
-  box-sizing: border-box;
+button {
+  min-height: 40px;
+  border: 0;
+  border-radius: 8px;
+  padding: 8px 14px;
+  background: #4c3a2f;
+  color: #fff;
+  cursor: pointer;
 }
 
-.container {
-  width: min(500px, calc(100% - 64px));
-  margin: 20px auto;
-  box-sizing: border-box;
-}
-
-.card {
-  background: white;
-  border-radius: 12px;
-  padding: 12px 16px;
-  margin: 0 0 20px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-  box-sizing: border-box;
-}
-
-.card h3 {
-  margin: 0 0 6px 0;
-  line-height: 1.4;
-  color: #4C3A2F;
-}
-
-.card p {
-  font-size: 13px;
-  color: #666;
-  margin-bottom: 10px;
-}
-
-.warning {
-  color: #c0392b;
-  font-size: 13px;
+.secondary-btn {
+  background: #f3e7d8;
+  color: #4c3a2f;
 }
 
 .danger {
-  background: #e74c3c;
-  color: white;
+  background: #c0392b;
+  color: #fff;
 }
 
-#back-btn {
-  margin-bottom: 10px;
-}
-
-/* ===================== */
-/* 味わいタグ             */
-/* ===================== */
-.tag-area {
-  margin: 4px 0 12px;
-}
-
-.tag-title {
-  font-size: 14px;
-  color: #4C3A2F;
-  margin-bottom: 6px;
+.btn-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
 }
 
 .tag-list {
@@ -219,25 +187,78 @@ body {
   gap: 8px;
 }
 
+#tag-filter-list {
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  padding-bottom: 6px;
+  -webkit-overflow-scrolling: touch;
+}
+
 .tag-chip {
+  flex: 0 0 auto;
+  min-height: 34px;
   border: 1px solid #ddd;
   border-radius: 999px;
-  padding: 8px 14px;
+  padding: 6px 12px;
   background: #fff;
-  color: #4C3A2F;
+  color: #4c3a2f;
   font-size: 14px;
-  cursor: pointer;
-  transition: background 0.15s ease, color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
 }
 
 .tag-chip.selected {
-  background: #4C3A2F;
+  border-color: #4c3a2f;
+  background: #4c3a2f;
   color: #fff;
-  border-color: #4C3A2F;
 }
 
-.tag-chip:active {
-  transform: scale(0.97);
+.rating-field {
+  margin: 0;
+  border: 0;
+  padding: 0;
+}
+
+.rating-field legend {
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+
+.rating-field label {
+  margin-right: 10px;
+}
+
+.note-list {
+  display: grid;
+  gap: 14px;
+}
+
+.note-card {
+  padding: 14px;
+  line-height: 1.5;
+}
+
+.top {
+  color: #4c3a2f;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.sub {
+  margin: 4px 0 6px;
+  color: #66574e;
+  font-size: 13px;
+}
+
+.comment {
+  max-height: 120px;
+  margin: 8px 0;
+  overflow-y: auto;
+  white-space: pre-wrap;
+}
+
+.origin,
+.shop {
+  color: #77685f;
+  font-size: 12px;
 }
 
 .note-tags {
@@ -250,50 +271,48 @@ body {
 .note-tag {
   border-radius: 999px;
   padding: 3px 8px;
-  background: #F3E7D8;
-  color: #4C3A2F;
+  background: #f3e7d8;
+  color: #4c3a2f;
   font-size: 12px;
 }
 
-/* ===================== */
-/* タグ絞り込みUI         */
-/* ===================== */
-.tag-filter-area {
-  margin: 4px 0 12px;
-}
-
-#tag-filter-list {
+.records-summary {
   display: flex;
-  flex-wrap: nowrap;
-  gap: 8px;
-  overflow-x: auto;
-  padding-bottom: 6px;
-  -webkit-overflow-scrolling: touch;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
 }
 
-#tag-filter-list .tag-chip {
-  flex: 0 0 auto;
-  white-space: nowrap;
+.summary-label {
+  display: block;
+  margin-bottom: 4px;
+  color: #66574e;
+  font-size: 13px;
 }
 
-/* ===================== */
-/* 好み分析UI             */
-/* ===================== */
-.analysis-area {
-  margin: 12px 0 20px;
+.note-dates {
+  margin-top: 12px;
+  font-size: 0.8rem;
+  color: #666;
+  line-height: 1.5;
 }
 
-.analysis-card {
-  background: #fff;
-  border-radius: 12px;
-  padding: 14px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-  line-height: 1.7;
-  color: #4C3A2F;
+.warning,
+.warning-panel {
+  color: #a93226;
+}
+
+.warning-panel {
+  border: 1px solid #e8beb8;
+  background: #fff7f4;
+}
+
+.warning-panel p {
+  margin: 4px 0;
 }
 
 .analysis-section {
-  margin-bottom: 12px;
+  margin-bottom: 14px;
 }
 
 .analysis-section:last-child {
@@ -301,11 +320,18 @@ body {
 }
 
 .analysis-label {
-  font-weight: bold;
   margin-bottom: 4px;
+  font-weight: bold;
 }
 
 .analysis-item {
-  font-size: 14px;
   color: #555;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.empty-message {
+  margin: 20px 0;
+  color: #66574e;
+  text-align: center;
 }

@@ -1,99 +1,52 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja">
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta charset="UTF-8">
-  <title>🫘Roast Note</title>
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Roast Note</title>
   <link rel="manifest" href="./manifest.json">
   <link rel="stylesheet" href="./css/style.css">
   <link rel="apple-touch-icon" sizes="180x180" href="./assets/icon.png">
   <meta name="apple-mobile-web-app-capable" content="yes">
-  
 </head>
 <body>
-  <h1>🫘Roast Note</h1>
+  <header class="app-header home-header">
+    <h1><a href="./index.html" class="logo-link">Roast Note</a></h1>
+    <p class="lead">コーヒーの記録、検索、分析をここから。</p>
+  </header>
 
-  <button id="data-btn" class="sub-btn">⚙️データ管理</button>
-  
-  <!-- ===================== -->
-  <!-- 検索フォーム -->
-  <!-- ===================== -->
-  <!--検索欄・タイトル・入力フォームを同一幅で揃えるための共通コンテナ -->
-  <div class="content-wrap">
-    <input
-      type="text"
-      id="searchInput"
-      placeholder="名前 or コメントで検索"
-    />
-      
-    <!-- ===================== -->
-    <!-- 入力フォーム -->
-    <!-- ===================== -->
-    <div class="tag-filter-area">
-      <div class="tag-title">タグで絞り込み</div>
-      <div id="tag-filter-list" class="tag-list"></div>
-    </div>
-    
-      <!-- ===================== -->
-    <!-- 好み分析 -->
-    <!-- ===================== -->
-    <div class="analysis-area">
-      <h2 class="special-title">⭐ 好み分析</h2>
+  <main class="container">
+    <nav class="home-menu" aria-label="メインメニュー">
+      <a class="menu-card" href="./search.html">
+        <span class="menu-icon">検索</span>
+        <strong>検索</strong>
+        <span>名前・コメント・タグから探す</span>
+      </a>
 
-      <div id="analysis-content" class="analysis-card">
-        分析データなし
-      </div>
-    </div>
+      <a class="menu-card" href="./analysis.html">
+        <span class="menu-icon">分析</span>
+        <strong>分析</strong>
+        <span>好みの傾向を見る</span>
+      </a>
 
-    <h2 class="special-title" id="form-title">新規登録</h2>
+      <a class="menu-card" href="./register.html">
+        <span class="menu-icon">登録</span>
+        <strong>新規登録</strong>
+        <span>新しいコーヒーを記録する</span>
+      </a>
 
-    <form id="note-form">
-      <input type="text" id="name" placeholder="コーヒー名" /><br>
-      <input type="text" id="origin" placeholder="産地（例：インドネシア・バリ島）" /><br>
-      <input type="text" id="shop" placeholder="店名（例：珈琲問屋）" /><br>
+      <a class="menu-card" href="./records.html">
+        <span class="menu-icon">一覧</span>
+        <strong>登録データ</strong>
+        <span>最近の記録と全件を管理する</span>
+      </a>
 
-      <div>
-        <textarea id="comment" class="form-textarea" placeholder="感想" rows="10"></textarea>
-      </div>
-
-      <select id="roast">
-        <option value="">焙煎度</option>
-        <option value="light">浅煎り（ライト：-20秒）</option>
-        <option value="cinnamon">浅煎り（シナモン：-10秒）</option>
-        <option value="medium">中煎り（ミディアム：標準）</option>
-        <option value="high">中煎り（ハイ：+20秒）</option>
-        <option value="city">深煎り（シティ以上：+40秒～）</option>
-      </select><br>
-
-      <div class="tag-area">
-        <div class="tag-title">味わいタグ</div>
-        <div id="tag-list" class="tag-list"></div>
-      </div>
-
-      <div>
-        ★評価：
-        <label><input type="radio" name="rating" value="1">1</label>
-        <label><input type="radio" name="rating" value="2">2</label>
-        <label><input type="radio" name="rating" value="3">3</label>
-        <label><input type="radio" name="rating" value="4">4</label>
-        <label><input type="radio" name="rating" value="5">5</label>
-      </div><br>
-      
-      <button type="submit" id="submit-btn">保存</button>
-    </form>
-  </div>
-
-  <!-- ===================== -->
-  <!-- 一覧表示 -->
-  <!-- ===================== -->
-  <div id="output"></div>
-
-  <!-- ===================== -->
-  <!--   db.js, ui.js 読み込み追加 -->
-  <!-- ===================== -->
-  <script src="./js/db.js"></script>
-  <script src="./js/ui.js"></script>
-  
+      <a class="menu-card" href="./settings.html">
+        <span class="menu-icon">管理</span>
+        <strong>データ管理</strong>
+        <span>エクスポート・インポート・全削除</span>
+      </a>
+    </nav>
+  </main>
 </body>
 </html>

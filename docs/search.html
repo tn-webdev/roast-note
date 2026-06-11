@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>検索 | Roast Note</title>
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+  <header class="app-header">
+    <a href="./index.html" class="home-link">HOME</a>
+    <h1><a href="./index.html" class="logo-link">Roast Note</a></h1>
+    <h2>検索</h2>
+  </header>
+
+  <main class="container">
+    <input type="text" id="searchInput" placeholder="名前・コメント・タグで検索">
+
+    <section class="panel">
+      <h3>タグで絞り込み</h3>
+      <div id="tag-filter-list" class="tag-list"></div>
+    </section>
+
+    <section id="output" class="note-list" aria-live="polite"></section>
+  </main>
+
+  <script src="./js/db.js"></script>
+  <script src="./js/common.js"></script>
+  <script src="./js/search.js"></script>
+</body>
+</html>
