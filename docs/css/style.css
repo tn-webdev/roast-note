@@ -341,7 +341,7 @@ body.home {
   min-height: 100vh;
   background:
     linear-gradient(rgba(255,255,255,0.18), rgba(255,255,255,0.18)),
-    url("../assets/top-bg.png") center / cover no-repeat;
+    url("../assets/top-bg-temp.png") center / cover no-repeat;
 }
 
 .home-header {
