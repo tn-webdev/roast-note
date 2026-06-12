@@ -102,7 +102,7 @@ const RoastNoteUI = (() => {
     const card = document.createElement("article");
     card.className = "note-card";
     card.innerHTML = `
-      <div class="top">コーヒー ${escapeHtml(note.name || "（未入力）")}</div>
+      <div class="top">🫘 ${escapeHtml(note.name || "（未入力）")}</div>
       <div class="sub">${escapeHtml(formatRoast(note.roast))} / 評価 <strong>${escapeHtml(note.rating ?? "-")}</strong></div>
       ${tagHtml}
       <div class="comment">${escapeHtml(note.comment || "なし")}</div>

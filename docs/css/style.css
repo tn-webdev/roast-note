@@ -38,7 +38,7 @@ a {
 }
 
 .logo-link::before {
-  content: "豆 ";
+  content: "🫘 ";
 }
 
 .lead {
@@ -334,4 +334,112 @@ button {
   margin: 20px 0;
   color: #66574e;
   text-align: center;
+}
+
+/* TOP専用 */
+body.home {
+  min-height: 100vh;
+  background:
+    linear-gradient(rgba(255,255,255,0.18), rgba(255,255,255,0.18)),
+    url("../assets/top-bg.png") center / cover no-repeat;
+}
+
+.home-header {
+  text-align: center;
+}
+
+.home-header h1,
+.home-header .lead {
+    width: 260px;
+    margin-left: auto;
+    margin-right: auto;
+    box-sizing: border-box;
+}
+
+.home-header h1 {
+  display: block;
+  padding: 12px 18px 4px;
+  background: #ff1d12;
+  color: #fff;
+  font-size: 30px;
+  letter-spacing: 1px;
+}
+
+.home-header .lead {
+  display: block;
+  margin-top: 0;
+  padding: 0 18px 12px;
+  background: #ff1d12;
+  color: #111;
+}
+
+.home-menu {
+  place-items: center;
+  gap: 10px;
+}
+
+.menu-card {
+  width: 140px;
+  min-height: 30px;
+  display: grid;
+  place-items: center;
+  padding: 6px 10px;
+  border-radius: 6px;
+  background: rgba(224, 164, 115, 0.82);
+  color: #fff;
+  font-weight: bold;
+  text-align: center;
+  box-shadow: none;
+}
+
+.menu-card span:last-child {
+  color: inherit;
+  font-size: 15px;
+}
+
+.menu-card[href="./settings.html"] {
+  width: auto;
+  min-height: auto;
+  margin-top: 8px;
+  padding: 0;
+  background: transparent;
+  color: #111;
+}
+
+.home .logo-link::before {
+  content: "";
+}
+
+/* .home .menu-card {
+  width: 140px;
+  min-height: 28px;
+  display: grid;
+  grid-template-columns: 1fr;
+  place-items: center;
+  padding: 6px 10px;
+  white-space: nowrap;
+} */
+.home .menu-card {
+  width: 140px;
+  min-height: 28px;
+  display: grid;
+  grid-template-columns: 1fr;
+  place-items: center;
+  padding: 6px 10px;
+  white-space: nowrap;
+  background: rgba(224, 164, 115, 0.82);
+  color: #fff;
+  text-align: center;
+}
+
+/* .home .menu-card[href="./settings.html"] {
+  margin-top: 8px;
+} */
+
+.home .menu-card span {
+  font-size: 15px;
+}
+
+.home .menu-card span:last-child {
+  font-size: 15px;
 }
