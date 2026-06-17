@@ -16,6 +16,20 @@
   <main class="container">
     <input type="text" id="searchInput" placeholder="名前・コメント・タグで検索">
 
+    <div class="search-filters">
+      <select id="ratingFilter">
+        <option value="">評価すべて</option>
+        <option value="5">★★★★★</option>
+        <option value="4">★★★★</option>
+        <option value="3">★★★</option>
+        <option value="2">★★</option>
+        <option value="1">★</option>
+        <option value="none">評価なし</option>
+      </select>
+
+      <input type="text" id="originFilter" placeholder="国名で検索">
+    </div>
+
     <section class="panel">
       <h3>タグで絞り込み</h3>
       <div id="tag-filter-list" class="tag-list"></div>
