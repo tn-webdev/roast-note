@@ -18,7 +18,8 @@ a {
 }
 
 .home-header {
-  padding-top: 32px;
+  padding-top: 110px;
+  /* padding-top: 32px; */
 }
 
 .app-header h1,
@@ -170,7 +171,7 @@ button {
 }
 
 .danger {
-  background: #c0392b;
+  background: #ff1d12;
   color: #fff;
 }
 
@@ -359,7 +360,7 @@ body.home {
 .home-header h1 {
   display: block;
   padding: 12px 18px 4px;
-  background: #ff1d12;
+  background: #d62828;
   color: #fff;
   font-size: 30px;
   letter-spacing: 1px;
@@ -369,7 +370,7 @@ body.home {
   display: block;
   margin-top: 0;
   padding: 0 18px 12px;
-  background: #ff1d12;
+  background: #d62828;
   color: #111;
 }
 
@@ -385,7 +386,7 @@ body.home {
   place-items: center;
   padding: 6px 10px;
   border-radius: 6px;
-  background: rgba(224, 164, 115, 0.82);
+  background: rgba(197, 95, 11, 0.9);
   color: #fff;
   font-weight: bold;
   text-align: center;
@@ -419,6 +420,7 @@ body.home {
   padding: 6px 10px;
   white-space: nowrap;
 } */
+
 .home .menu-card {
   width: 140px;
   min-height: 28px;
@@ -427,7 +429,7 @@ body.home {
   place-items: center;
   padding: 6px 10px;
   white-space: nowrap;
-  background: rgba(224, 164, 115, 0.82);
+  background: rgba(197, 95, 11, 0.9);
   color: #fff;
   text-align: center;
 }
