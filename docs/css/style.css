@@ -398,28 +398,9 @@ body.home {
   font-size: 15px;
 }
 
-.menu-card[href="./settings.html"] {
-  width: auto;
-  min-height: auto;
-  margin-top: 8px;
-  padding: 0;
-  background: transparent;
-  color: #111;
-}
-
 .home .logo-link::before {
   content: "";
 }
-
-/* .home .menu-card {
-  width: 140px;
-  min-height: 28px;
-  display: grid;
-  grid-template-columns: 1fr;
-  place-items: center;
-  padding: 6px 10px;
-  white-space: nowrap;
-} */
 
 .home .menu-card {
   width: 140px;
@@ -433,10 +414,6 @@ body.home {
   color: #fff;
   text-align: center;
 }
-
-/* .home .menu-card[href="./settings.html"] {
-  margin-top: 8px;
-} */
 
 .home .menu-card span {
   font-size: 15px;
